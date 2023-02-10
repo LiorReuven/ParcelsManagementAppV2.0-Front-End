@@ -1,27 +1,48 @@
-# Angularclient
+# Parcels Management App V2.0 Angular
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.1.2.
+A newer version of the original parcels management app, done with Angular,
+please visit the original [parcels management app page](https://lior-reuven.netlify.app/main_projects/6) to learn about the core of the app
+This version added:
+Increased speed and performance,
+Cleaner and more scaleable code,
+Full mobile support,
+Better UI, done with PrimeNG,
+Adding companies and their respective release url feature,
+Exporting reports to Excel / PDF / CSV files,
+Improved filtering and searching in many pages,being able to filter faster and with more options.
 
-## Development server
+## Features
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+### General:
 
-## Code scaffolding
+- Full historical data of every parcel including all vital information.
+- Storage units management allows you to add/edit and assign parcels.
+- Companies management and their respective release url.
+- Quick parcels release - takes you directly to the proper parcel release form, reducing the waiting time of customers.
+- Reports - export a monthly report of either all parcels or parcels of a specific delivery company to a PDF/EXCEL/CSV file.
+- Multiple error preventing measures(preventing human made errors).
+- Storage unit auto assigns itself to a specific delivery company based on parcels inserted.
+- Live application - can be opened on multiple computers,changes will be updates automatically(no refresh needed).
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+### Technicalities:
+- Made with Angular and NodeJs.
+- MongoDB.
+  - mongoose.
+  - users database.
+  - parcels database.
+  - storage units database.
+  - companies database.
+- Angular's rxjs, utilizing http requests,subjects, behavior subjects etc...
+- jspdf - for PDF exports.
+- Css
+- Socket.io
+- Angular Router
+- Authentication
+  -Jsonwebtoken(with middleware)
+- Bcrypt
 
-## Build
+## Images
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+I did not want to bloat the file with images,please check them on my portfolio website here:[Parcels App V2.0 Page](https://lior-reuven.netlify.app/main_projects/7)
 
-## Running unit tests
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
