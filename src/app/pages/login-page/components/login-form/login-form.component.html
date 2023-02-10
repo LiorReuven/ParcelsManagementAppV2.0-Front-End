@@ -1,0 +1,60 @@
+<form [formGroup]="loginForm"  class="form" (ngSubmit)="onSubmit()">
+  <h1>
+    Login
+    <p-divider></p-divider>
+  </h1>
+
+  <div class="inputwrapper">
+    <div class="p-inputgroup">
+      <span class="p-inputgroup-addon">
+        <i class="pi pi-user"></i>
+      </span>
+      <span class="p-float-label">
+        <input
+          id="username"
+          type="text"
+          formControlName="username"
+          pInputText
+        />
+        <label for="username">Username</label>
+      </span>
+    </div>
+    <div class="alert-danger" [hidden]="loginForm.get('username')?.valid || loginForm.get('username')?.pristine">
+      Username is required
+    </div>
+  </div>
+
+  <div class="inputwrapper">
+    <div class="p-inputgroup">
+      <span class="p-inputgroup-addon">
+        <i class="pi pi-key"></i>
+      </span>
+      <span class="p-float-label">
+        <input
+          id="password"
+          formControlName="password"
+          type="password"
+          pInputText
+        />
+        <label for="password">Password</label>
+      </span>
+    </div>
+    <div class="alert-danger" [hidden]="loginForm.get('password')?.valid || loginForm.get('password')?.pristine">
+      Password is required
+    </div>
+  </div>
+
+  <button
+    [disabled]="!loginForm.valid"
+    icon="pi pi-sign-in"
+    iconPos="right"
+    [loading]="isSubmitting"
+    type="submit"
+    pButton
+    label="{{!isSubmitting ? 'Login' : 'Loading...'}}"
+  >
+  </button>
+  <div class="errordiv">
+  <p-message class="error" *ngIf="error && loginForm.pristine" severity="error" [text]="error"></p-message>
+</div>
+</form>

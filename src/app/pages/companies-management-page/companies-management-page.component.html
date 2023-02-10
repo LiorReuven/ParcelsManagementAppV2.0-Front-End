@@ -1,0 +1,177 @@
+<div class="card">
+  <p-toolbar styleClass="mb-4 gap-2">
+    <ng-template pTemplate="left">
+      <button
+        pButton
+        pRipple
+        label="New"
+        icon="pi pi-plus"
+        class="p-button-success mr-2"
+        (click)="openNew()"
+      ></button>
+      <button
+        pButton
+        pRipple
+        label="Delete"
+        icon="pi pi-trash"
+        class="p-button-danger"
+        (click)="deleteSelectedCompanies()"
+        [disabled]="!selectedCompanies || !selectedCompanies.length"
+      ></button>
+    </ng-template>
+
+    <ng-template pTemplate="right">
+      <button
+        pButton
+        pRipple
+        label="Export"
+        icon="pi pi-upload"
+        class="p-button-help"
+      ></button>
+    </ng-template>
+  </p-toolbar>
+
+  <p-table
+    #dt
+    [value]="allCompanies"
+    [rows]="10"
+    [paginator]="true"
+    [globalFilterFields]="['name']"
+    [tableStyle]="{ 'min-width': '20rem' }"
+    [(selection)]="selectedCompanies"
+    [rowHover]="true"
+    dataKey="id"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+    [showCurrentPageReport]="true"
+    [reorderableColumns]="true"
+    sortField="position"
+    [sortOrder]="1"
+  >
+    <ng-template pTemplate="caption">
+      <div class="flex align-items-center justify-content-between">
+        <h5 class="m-0">Manage Companies</h5>
+        <span class="p-input-icon-left">
+          <i class="pi pi-search"></i>
+          <input
+            pInputText
+            type="text"
+            (input)="dt.filterGlobal($any($event.target).value, 'contains')"
+            placeholder="Search..."
+          />
+        </span>
+      </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+        <th style="width: 4rem">
+          <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+        </th>
+        <th style="min-width: 15rem">Name</th>
+        <th style="min-width: 15rem">Release URL</th>
+        <th>Actions</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-company>
+      <tr>
+        <td>
+          <p-checkbox
+            name="groupname"
+            [value]="company"
+            [(ngModel)]="selectedCompanies"
+          ></p-checkbox>
+        </td>
+        <td>{{ company.name }}</td>
+        <td class="releaseUrl">{{ company.releaseUrl }}</td>
+        <td class="actions-td">
+          <button
+            pButton
+            pRipple
+            icon="pi pi-pencil"
+            class="p-button-rounded p-button-success mr-2 mb-2"
+            (click)="editCompany(company)"
+          ></button>
+          <button
+            pButton
+            pRipple
+            icon="pi pi-trash"
+            class="p-button-rounded p-button-warning"
+            (click)="deleteCompany(company)"
+          ></button>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="summary">
+      <div class="flex align-items-center justify-content-between">
+        In total there are {{ allCompanies.length }} companies.
+      </div>
+    </ng-template>
+  </p-table>
+</div>
+
+<p-dialog
+  [(visible)]="companyDialog"
+  header="Company Details"
+  [modal]="true"
+  styleClass="p-fluid"
+>
+  <ng-template pTemplate="content">
+    <form #form="ngForm">
+      <div class="field">
+        <label for="name">Name</label>
+        <input
+          type="text"
+          pInputText
+          id="name"
+          name="name"
+          [(ngModel)]="company.name"
+          required
+          (keydown.space)="$event.preventDefault()"
+        />
+        <small *ngIf="!company.name && form.touched" class="p-error"
+          >Name is required.</small
+        >
+      </div>
+      <div class="field">
+        <label for="color">Release URL</label>
+        <i
+        [escape]="false"
+          pTooltip="Enter the URL that will be launched upon a parcel release.<br>Replace the place in the url where you want the app to insert the parcel barcode dynamically with 'PLACEHERE' without quotes in big characters<br>Example:<br> www.yyyy.com/release/PLACEHERE<br>if you dont want to launch a website leave it empty"
+          class="pi pi-info-circle info-icon"
+        ></i>
+        <input
+          type="text"
+          pInputText
+          id="release-url"
+          name="release-url"
+          [(ngModel)]="company.releaseUrl"
+        />
+      </div>
+    </form>
+  </ng-template>
+
+  <ng-template pTemplate="footer">
+    <button
+      pButton
+      pRipple
+      label="Cancel"
+      icon="pi pi-times"
+      class="p-button-text"
+      (click)="hideDialog()"
+    ></button>
+    <button
+      pButton
+      pRipple
+      [label]="isUpdate ? 'Update' : 'Create'"
+      icon="pi pi-check"
+      class="p-button-text"
+      (click)="isUpdate ? updateCompanySubmit() : createCompanySubmit()"
+    ></button>
+  </ng-template>
+</p-dialog>
+
+<p-confirmDialog
+  [style]="{ width: '450px' }"
+  rejectButtonStyleClass="p-button-text"
+></p-confirmDialog>
+
+

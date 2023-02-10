@@ -1,0 +1,44 @@
+.details-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.storage-container {
+  min-width: 400px;
+  max-width: 400px;
+}
+
+.dashed-container {
+  padding: 1em;
+  overflow-y: auto;
+  overflow-x: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+:host ::ng-deep .p-button.p-button-lg {
+  padding: 0.3rem;
+}
+
+:host ::ng-deep .handledParcelButton .p-button .p-button-label  {
+  height: 100%;
+  font-size: 2.3rem;
+}
+
+
+
+
+@media screen and (max-width: 960px) {
+  .storage-container {
+    margin-top: 3rem;
+    margin-bottom: 1rem;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .storage-container {
+    min-width: 300px;
+  }
+}

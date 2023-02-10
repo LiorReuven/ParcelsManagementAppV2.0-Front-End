@@ -1,0 +1,19 @@
+@import url("../node_modules/primeicons/primeicons.css");
+@import url("../node_modules/primeng/resources/themes/vela-blue/theme.css");
+@import url("../node_modules/primeng/resources/primeng.min.css");
+
+* {
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  height: 100vh;
+  /* overflow-x: hidden;
+  overflow-y: auto; */
+  background-color: var(--surface-ground	);
+  font-family: var(--font-family);
+  color: var(--text-color);
+}
+
+/* #18212f  #212d40 */

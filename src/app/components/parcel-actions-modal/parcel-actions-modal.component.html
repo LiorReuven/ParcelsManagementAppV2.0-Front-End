@@ -1,0 +1,105 @@
+<p-dialog
+  [modal]="true"
+  [header]="title"
+  [(visible)]="displayModal"
+  [draggable]="false"
+  [resizable]="false"
+  (onHide)="onHide()"
+>
+  <div class="surface-section parcel-info-container">
+    <div class="font-medium text-3xl text-900 mb-3">Parcel Information</div>
+    <!-- <div class="text-500 mb-5">
+      Please check the details carefully before releasing
+    </div> -->
+    <ul class="list-none p-0 m-0">
+      <li
+        class="flex align-items-center justify-content-between py-3 px-2 border-top-1 surface-border flex-wrap"
+      >
+        <div class="text-500 w-6 md:w-2 font-medium">Barcode</div>
+        <div class="text-900 w-full md:w-8 md:flex-order-0 flex-order-1">
+          {{ parcel.barcode }}
+        </div>
+      </li>
+      <li
+        class="flex justify-content-between align-items-center py-3 px-2 border-top-1 surface-border flex-wrap"
+      >
+        <div class="text-500 w-6 md:w-2 font-medium">Company</div>
+        <div class="text-900 w-full md:w-8 md:flex-order-0 flex-order-1">
+          {{ parcel.company }}
+        </div>
+      </li>
+      <li
+        class="flex justify-content-between align-items-center py-3 px-2 border-top-1 surface-border flex-wrap"
+      >
+        <div class="text-500 w-6 md:w-2 font-medium">Position</div>
+        <div class="text-900 w-full md:w-8 md:flex-order-0 flex-order-1">
+          {{ parcel.position }}
+        </div>
+      </li>
+      <li
+        class="flex justify-content-between align-items-center py-3 px-2 border-top-1 surface-border flex-wrap"
+      >
+        <div class="text-500 w-6 md:w-2 font-medium">Created</div>
+        <div class="text-900 w-full md:w-8 md:flex-order-0 flex-order-1">
+          {{ parcel.created ? parcel.created : parcel.createdAt }}
+        </div>
+      </li>
+      <li
+        class="flex justify-content-between align-items-center py-3 px-2 border-top-1 border-bottom-1 surface-border flex-wrap"
+      >
+        <div class="text-500 w-6 md:w-2 font-medium">Released</div>
+        <div
+          class="text-900 w-full md:w-8 md:flex-order-0 flex-order-1 line-height-3"
+        >
+          {{ parcel.released }}
+        </div>
+      </li>
+      <li
+        class="flex justify-content-between align-items-center py-3 px-2 border-top-1 border-bottom-1 surface-border flex-wrap"
+      >
+        <div class="text-500 w-6 md:w-2 font-medium">Locked</div>
+        <div
+          class="text-900 w-full md:w-8 md:flex-order-0 flex-order-1 line-height-3"
+        >
+        <i [ngClass]="parcel.returnLocked?'pi pi-lock lock-icon':'pi pi-lock-open unlock-icon'"></i>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <ng-template pTemplate="footer">
+    <div class="button-div">
+      <button
+      (click)="parcel.returnLocked? onUnlock() : onLock()"
+        pButton
+        pRipple
+        type="button"
+        [icon]="parcel.returnLocked ? 'pi pi-lock-open' : 'pi pi-lock'"
+        [label]="parcel.returnLocked ? 'Unlock' : 'Lock'"
+        [ngClass]="parcel.returnLocked ? 'p-button-danger' : 'p-button-success'"
+      ></button>
+      <button
+      (click)="onReturn()"
+        pButton
+        pRipple
+        icon="pi pi-car"
+        type="button"
+        label="Return"
+        class="p-button-warning"
+      ></button>
+      <button
+      (click)="onDelete()"
+        pButton
+        pRipple
+        icon="pi pi-trash"
+        type="button"
+        label="Delete"
+        class="p-button-danger"
+      ></button>
+    </div>
+    <p-confirmDialog icon="pi pi-exclamation-triangle" rejectButtonStyleClass="p-button-text"></p-confirmDialog>
+  </ng-template>
+</p-dialog>
+
+
+
+

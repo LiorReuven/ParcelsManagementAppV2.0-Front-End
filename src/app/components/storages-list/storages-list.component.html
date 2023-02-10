@@ -1,0 +1,16 @@
+<div class="card">
+  <p-table  [value]="listArray" styleClass="p-datatable-sm" [tableStyle]="{'min-width': '18rem'}">
+      <ng-template pTemplate="header">
+          <tr>
+              <th>Storage</th>
+              <th>Company</th>
+          </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-listItem>
+          <tr>
+              <td [ngStyle]="{color: listItem.color}">{{listItem.storage}}</td>
+              <td>{{listItem.company}}</td>
+          </tr>
+      </ng-template>
+  </p-table>
+</div>

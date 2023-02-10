@@ -1,0 +1,92 @@
+<app-release-modal *ngIf="modalParcel && displayModal" (onHideModal)="onHideModal()"  [displayModal]="displayModal" [title]="modalTitle" [parcel]="modalParcel"></app-release-modal>
+
+
+
+<div class="wrapper">
+  <div class="card">
+    <p-dataView
+      #dv
+      [value]="allStorages"
+      [paginator]="true"
+      [rows]="45"
+      filterBy="name"
+      layout="grid"
+      [showCurrentPageReport]="true"
+      [rowsPerPageOptions]="[9, 27, 45]"
+      [totalRecords]="totalRecords"
+      currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+    >
+      <ng-template pTemplate="header">
+        <div class="flex flex-column md:align-items-end  md:flex-row md:justify-content-between">
+          <span class="p-input-icon-left mb-2 md:mb-0">
+            <i class="pi pi-search"></i>
+            <input type="search" pInputText placeholder="Enter Storage Name" (input)="dv.filter($any($event.target).value)" />
+          </span>
+        <div class="p-input-group">
+          <form [formGroup]="parcelUnstockForm" (ngSubmit)="onSubmitBarcode()">
+          <small *ngIf="(parcelUnstockForm.get('barcode')?.valid || parcelUnstockForm.get('barcode')?.pristine) && !formError" id="parcel-help" class="block">Enter the parcel's barcode</small>
+          <small [ngStyle]="{color: 'red'}" *ngIf="!parcelUnstockForm.get('barcode')?.valid && !parcelUnstockForm.get('barcode')?.pristine || formError" class="block">{{formError}}</small>
+            <input formControlName="barcode" id="parcel" type="text" aria-describedby="parcels-help" pInputText  />
+            <button [disabled]="!parcelUnstockForm.valid" type="button" pButton pRipple icon="pi pi-arrow-circle-right" styleClass="p-button-warn" (click)="onBarcodeButtonClick()"></button> 
+          </form>
+        </div>
+          <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
+        </div>
+      </ng-template>
+
+      <ng-template let-storage pTemplate="listItem">
+        <div class="col-12">
+          <div
+            [ngStyle]="{ border: '5px solid', borderColor: storage.color }"
+            class="product-list-item"
+          >
+            <div class="product-list-detail">
+              <div
+                [ngStyle]="{ color: storage.color }"
+                class="product-name name-list"
+              >
+                {{ storage.name }}
+              </div>
+              <i class="pi pi-tag storage-company-icon"></i
+              ><span class="storage-company">{{ storage | parcelsDashboardPipe: stockParcels: false }}</span>
+            </div>
+            <span class="storage-amount amount-list">{{ storage | parcelsDashboardPipe: stockParcels: true }}</span>
+            <p-button (click)="toStorageHandler(storage)"  label="To Storage"></p-button>
+          </div>
+        </div>
+      </ng-template>
+
+      <ng-template let-storage pTemplate="gridItem">
+        <div class="col-12 md:col-4">
+          <div class="storage-grid-item">
+            <div
+              [ngStyle]="{ backgroundColor: storage.color }"
+              class="color-top"
+            >
+              <div class="product-grid-item-top">
+                <div>
+                  <span class="storage-name">{{ storage.name }}</span>
+                </div>
+              </div>
+            </div>
+            <div class="grid-content">
+              <div class="product-grid-item-middle">
+                <div>
+                  <i class="pi pi-tag storage-company-icon"></i>
+                  <span class="storage-company">{{ storage | parcelsDashboardPipe: stockParcels: false }}</span>
+                </div>
+              </div>
+
+              <div class="product-grid-item-bottom">
+                <span class="storage-amount">{{ storage | parcelsDashboardPipe: stockParcels: true }}</span>
+                <p-button (click)="toStorageHandler(storage)" label="To Storage"></p-button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+    </p-dataView>
+  </div>
+</div>
+
+

@@ -1,0 +1,9 @@
+<p-menubar *ngIf="isAuth" [model]="items" class="my-component">
+  <ng-template pTemplate="start">
+      <!-- <img src="assets/showcase/images/primeng.svg" height="40" class="mr-2"> -->
+      <h1>Company</h1>
+  </ng-template>
+  <ng-template pTemplate="end">
+    <button pButton label="Logout" icon="pi pi-power-off" (click)="onLogoutClick()"></button>
+  </ng-template>
+</p-menubar>

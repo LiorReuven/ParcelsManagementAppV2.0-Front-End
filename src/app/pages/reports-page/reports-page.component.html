@@ -1,0 +1,93 @@
+<div class="container">
+  <p-table
+    #dt
+    [paginator]="true"
+    [rows]="10"
+    [totalRecords]="totalRecords"
+    [showCurrentPageReport]="true"
+    [rowsPerPageOptions]="[10, 25, 50]"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+    [columns]="cols"
+    [value]="filteredArray"
+    [exportHeader]="'customExportHeader'"
+    [tableStyle]="{ 'min-width': '50rem' }"
+    [loading]="loading"
+  >
+    <ng-template pTemplate="caption">
+      <div class="flex">
+        <button
+          type="button"
+          pButton
+          pRipple
+          icon="pi pi-file"
+          (click)="dt.exportCSV()"
+          class="mr-2"
+          pTooltip="CSV"
+          tooltipPosition="bottom"
+        ></button>
+        <button
+          type="button"
+          pButton
+          pRipple
+          icon="pi pi-file-excel"
+          (click)="exportExcel()"
+          class="p-button-success mr-2"
+          pTooltip="XLS"
+          tooltipPosition="bottom"
+        ></button>
+        <button
+          type="button"
+          pButton
+          pRipple
+          icon="pi pi-file-pdf"
+          (click)="exportPdf()"
+          class="p-button-warning mr-2"
+          pTooltip="PDF"
+          tooltipPosition="bottom"
+        ></button>
+      </div>
+      <div>
+        <div class="inputs-container mb-3 mt-3">
+          <label for="selectedCompany" class="label text-900 font-medium mr-3"
+            >Company:</label
+          >
+          <p-dropdown name="selectedCompany"[options]="allCompanies"  [(ngModel)]="selectedCompany" optionLabel="name"></p-dropdown>
+          <label for="startDate" class="label text-900 font-medium mr-3 ml-3"
+            >Start Date:</label
+          >
+          <p-calendar dateFormat="dd.mm.yy" class="date-input" name="startDate" [(ngModel)]="selectedStartDate"></p-calendar>
+
+          <label for="endDate" class="label text-900 font-medium mr-3 ml-3"
+            >End Date:</label
+          >
+          <p-calendar dateFormat="dd.mm.yy" class="date-input" name="endDate" [(ngModel)]="selectedEndDate"></p-calendar>
+          <label for="endDate" class="label text-900 font-medium mr-3 ml-3"
+            >Returned:</label
+          >
+          <p-checkbox [(ngModel)]="selectedReturned" [binary]="true" inputId="binary"></p-checkbox>
+          <label for="endDate" class="label text-900 font-medium mr-3 ml-3"
+            >In Stock:</label
+          >
+          <p-checkbox  [(ngModel)]="selectedStock" [binary]="true" inputId="binary"></p-checkbox>
+        </div>
+        <div class="btn">
+          <p-button (onClick)="onGenerate()" label="Generate"></p-button>
+        </div>
+      </div>
+    </ng-template>
+    <ng-template pTemplate="header" let-columns>
+      <tr>
+        <th *ngFor="let col of columns">
+          {{ col.header }}
+        </th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowData let-columns="columns">
+      <tr>
+        <td *ngFor="let col of columns">
+          {{ rowData[col.field] }}
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>

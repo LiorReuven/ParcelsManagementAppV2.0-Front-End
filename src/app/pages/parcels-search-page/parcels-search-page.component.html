@@ -1,0 +1,106 @@
+<app-parcel-actions-modal *ngIf="modalParcel && displayModal"  (onHideModal)="onHideModal()"  [displayModal]="displayModal" [title]="modalTitle" [parcel]="modalParcel"></app-parcel-actions-modal>
+
+<div class="container">
+  <p-table
+    #dt1
+    [value]="allParcels"
+    dataKey="id"
+    [tableStyle]="{ 'min-width': '75rem' }"
+    [paginator]="true"
+    [rows]="10"
+    [totalRecords]="totalRecords"
+    [globalFilterFields]="[
+      'barcode',
+      'company',
+      'position',
+      'created',
+      'released'
+    ]"
+    sortField="updatedAt"
+    [sortOrder]="-1"
+    [showCurrentPageReport]="true"
+    [rowsPerPageOptions]="[10, 25, 50]"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+    styleClass="p-datatable-gridlines"
+    [rowHover]="true"
+  >
+    <ng-template pTemplate="caption">
+      <div class="flex">
+        <button
+          pButton
+          label="Clear"
+          class="p-button-outlined"
+          icon="pi pi-filter-slash"
+          (click)="clear(dt1)"
+        ></button>
+        <span class="p-input-icon-left mx-auto">
+          <i class="pi pi-search"></i>
+          <input
+            pInputText
+            type="text"
+            (input)="dt1.filterGlobal($any($event.target).value, 'contains')"
+            placeholder="Search keyword"
+          />
+        </span>
+      </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Barcode</th>
+        <th>Company</th>
+        <th>Position</th>
+        <th>Created</th>
+        <th>Released</th>
+        <th>Actions</th>
+      </tr>
+      <tr>
+        <th style="width: 15rem">
+          <p-columnFilter type="text" field="barcode"></p-columnFilter>
+        </th>
+        <th style="width: 15rem">
+          <p-columnFilter type="text" field="company"></p-columnFilter>
+        </th>
+        <th style="width: 15rem">
+          <p-columnFilter type="text" field="position"></p-columnFilter>
+        </th>
+        <th style="width: 15rem">
+          <p-columnFilter type="text" field="created"></p-columnFilter>
+        </th>
+        <th style="width: 15rem">
+          <p-columnFilter type="text" field="released"></p-columnFilter>
+        </th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-parcel>
+      <tr>
+        <td>{{ parcel.barcode }}</td>
+        <td>{{ parcel.company }}</td>
+        <td>{{ parcel.position }}</td>
+        <td><p-tag
+          styleClass="mr-2"
+          icon="pi pi-info-circle"
+          severity="success"
+          [value]="parcel.created"
+        ></p-tag></td>
+        <td>
+          <p-tag
+          *ngIf="parcel.released.toUpperCase() !== 'IN STOCK'"
+            styleClass="mr-2"
+            severity="info"
+            icon="pi pi-info-circle"
+            [value]="parcel.released "
+          ></p-tag>
+          <p-tag
+          *ngIf="parcel.released.toUpperCase() === 'IN STOCK'" 
+            styleClass="mr-2"
+            icon="pi pi-check"
+            severity="success"
+            [value]="parcel.released"
+          ></p-tag>
+        </td>
+        <td><button (click)="onActionsClick(parcel)" pButton pRipple type="button" label="Actions" class="p-button-help"></button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>

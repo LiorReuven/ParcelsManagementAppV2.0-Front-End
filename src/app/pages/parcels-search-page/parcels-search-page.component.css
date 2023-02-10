@@ -1,0 +1,18 @@
+.container {
+  padding: 8em;
+  padding-top: 2em;
+}
+
+:host ::ng-deep .p-tag-value {
+  font-size: 0.8rem;
+}
+
+/* tr {
+  cursor: pointer;
+} */
+
+@media screen and (max-width: 960px) {
+  .container {
+    padding: 2em;
+  }
+}

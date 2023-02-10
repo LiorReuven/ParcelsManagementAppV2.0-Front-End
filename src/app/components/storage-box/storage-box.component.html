@@ -1,0 +1,22 @@
+<div class="storage-container">
+  <div class="surface-card p-3 shadow-2 border-round">
+    <div class="text-3xl font-medium text-900 mb-2">{{ selectedStorage.name }}</div>
+    <div class="details-container">
+      <div>
+        <i class="pi pi-tag storage-company-icon"></i
+        ><span class="text-sm ml-1">{{storageCompany}}</span>
+      </div>
+      <span class="text-2xl font-bold">{{storageParcels.length}}</span>
+    </div>
+    <div
+      style="height: 150px"
+      class="border-2 border-dashed surface-border dashed-container"
+      [ngStyle]="{backgroundColor:selectedStorage.color}"
+    >
+    <p-button class="handledParcelButton" (click)="onLastHandledClick(lastHandledParcel)" styleClass="p-button-lg" *ngIf="lastHandledParcel" [label]="lastHandledParcel.barcode"></p-button>
+  </div>
+  </div>
+</div>
+
+<app-parcel-actions-modal *ngIf="modalParcel && displayModal"  (onHideModal)="onHideModal()"  [displayModal]="displayModal" [title]="modalTitle" [parcel]="modalParcel"></app-parcel-actions-modal>
+

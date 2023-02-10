@@ -1,0 +1,148 @@
+.wrapper {
+  flex-grow: 1;
+}
+
+.card {
+  background: var(--surface-card);
+  padding: 2rem;
+  border-radius: 10px;
+  margin-bottom: 2rem;
+}
+
+.product-name {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+
+.storage-company-icon {
+  vertical-align: middle;
+  margin-right: 0.5rem;
+  
+}
+
+.storage-name {
+  font-weight: 900;
+  vertical-align: middle;
+  font-size: x-large;
+  -webkit-text-stroke: 1px black;
+  color: white;
+}
+
+.product-list-item {
+  display: flex;
+  align-items: center;
+  
+  padding: 1rem;
+  width: 100%;
+  border-radius: 10px;
+  margin: 1rem 0;
+  
+}
+.color-square {
+  background-color: aqua;
+  height: 50px;
+  width: 50%;
+}
+
+.product-list-detail {
+  flex: 1 1 0;
+}
+
+.storage-company {
+
+  font-size: medium;
+}
+
+.name-list {
+  margin-bottom: 1rem;
+}
+
+.amount-list {
+  margin-right: 2rem;
+}
+
+
+.storage-grid-item {
+  margin: 0.5em;
+  border: 1px solid var(--surface-border);
+  overflow: hidden;
+  border-radius: 10px;
+}
+
+.color-top {
+  height: 40px;
+}
+
+.grid-content {
+  padding: 1rem;
+}
+
+.product-grid-item-bottom,.product-grid-item-middle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.product-grid-item-bottom {
+  margin-top: 2rem;
+}
+
+.product-grid-item-top {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.storage-amount {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+
+
+@media screen and (max-width: 576px) {
+
+
+
+   .product-list-item {
+    flex-direction: column;
+    align-items: center;
+  }
+
+   .product-list-item  {
+    margin: 2rem 0;
+  }
+
+   .product-list-detail {
+    text-align: center;
+  }
+
+  .product-price {
+    align-self: center;
+  }
+
+  .product-list-action {
+    display: flex;
+    flex-direction: column;
+  }
+
+   .product-list-action {
+    margin-top: 2rem;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+
+  .amount-list {
+    margin: 2rem 0;
+  }
+
+}
+
+@media screen and (max-width: 766px) {
+  :host ::ng-deep .p-input-group {
+    margin: 1rem 0;
+  }
+}

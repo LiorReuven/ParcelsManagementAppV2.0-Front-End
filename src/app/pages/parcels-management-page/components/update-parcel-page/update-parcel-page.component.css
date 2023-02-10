@@ -1,0 +1,23 @@
+.container {
+  display: flex;
+  justify-content: space-evenly;
+  margin-bottom: 1rem;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+button {
+  align-self: center;
+}
+
+
+
+@media screen and (max-width: 960px) {
+  .container {
+    flex-direction: column;
+    align-items: center;
+  }
+}

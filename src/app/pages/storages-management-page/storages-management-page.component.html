@@ -1,0 +1,193 @@
+<div class="card">
+  <p-toolbar styleClass="mb-4 gap-2">
+    <ng-template pTemplate="left">
+      <button
+        pButton
+        pRipple
+        label="New"
+        icon="pi pi-plus"
+        class="p-button-success mr-2"
+        (click)="openNew()"
+      ></button>
+      <button
+        pButton
+        pRipple
+        label="Delete"
+        icon="pi pi-trash"
+        class="p-button-danger"
+        (click)="deleteSelectedStorages()"
+        [disabled]="!selectedStorages || !selectedStorages.length"
+      ></button>
+    </ng-template>
+
+    <ng-template pTemplate="right">
+      <button
+        pButton
+        pRipple
+        label="Export"
+        icon="pi pi-upload"
+        class="p-button-help"
+      ></button>
+    </ng-template>
+  </p-toolbar>
+
+  <p-table
+    #dt
+    [value]="allStorages"
+    [rows]="10"
+    [paginator]="true"
+    [globalFilterFields]="['name']"
+    [tableStyle]="{ 'min-width': '20rem' }"
+    [(selection)]="selectedStorages"
+    [rowHover]="true"
+    dataKey="id"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+    [showCurrentPageReport]="true"
+    [reorderableColumns]="true"
+    sortField="position"
+    [sortOrder]="1"
+  >
+    <ng-template pTemplate="caption">
+      <div class="flex align-items-center justify-content-between">
+        <h5 class="m-0">Manage Storages</h5>
+        <span class="p-input-icon-left">
+          <i class="pi pi-search"></i>
+          <input
+            pInputText
+            type="text"
+            (input)="dt.filterGlobal($any($event.target).value, 'contains')"
+            placeholder="Search..."
+          />
+        </span>
+      </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+        <th style="width: 4rem">
+          <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+        </th>
+        <th style="min-width: 15rem">Name</th>
+        <th style="min-width: 15rem">Color</th>
+        <th style="min-width: 15rem">Order</th>
+        <th>Actions</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-storage>
+      <tr>
+        <td>
+          <p-checkbox
+            name="groupname"
+            [value]="storage"
+            [(ngModel)]="selectedStorages"
+          ></p-checkbox>
+        </td>
+        <td>{{ storage.name }}</td>
+        <td [ngStyle]="{ color: storage.color }">{{ storage.color }}</td>
+        <td>{{ storage.position }}</td>
+        <td>
+          <button
+            pButton
+            pRipple
+            icon="pi pi-pencil"
+            class="p-button-rounded p-button-success mr-2 mb-2"
+            (click)="editStorage(storage)"
+          ></button>
+          <button
+            pButton
+            pRipple
+            icon="pi pi-trash"
+            class="p-button-rounded p-button-warning"
+            (click)="deleteStorage(storage)"
+          ></button>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="summary">
+      <div class="flex align-items-center justify-content-between">
+        In total there are {{ allStorages.length }} storages.
+      </div>
+    </ng-template>
+  </p-table>
+</div>
+
+<p-dialog
+  [(visible)]="storageDialog"
+  header="Storage Details"
+  [modal]="true"
+  styleClass="p-fluid"
+>
+  <ng-template pTemplate="content">
+    <form #form="ngForm">
+    <div class="field">
+      <label for="name">Name</label>
+      <input
+        type="text"
+        pInputText
+        id="name"
+        name="name"
+        [(ngModel)]="storage.name"
+        required
+        (keydown.space)="$event.preventDefault()"
+        maxlength="11"
+      />
+      <small *ngIf="!storage.name && form.touched" class="p-error"
+        >Name is required.</small
+      >
+    </div>
+    <div class="field">
+      <label for="position">Position</label>
+      <input
+        type="number"
+        pInputText
+        min="1"
+        id="position"
+        name="position"
+        [(ngModel)]="storage.position"
+      />
+    </div>
+    <div class="field">
+      <label for="color">Color</label>
+      <input
+        type="text"
+        pInputText
+        id="color"
+        name="color"
+        required
+        [(ngModel)]="storage.color"
+        [ngStyle]="{ color: storage.color }"
+      />
+      <div class="mt-4">
+        <p-colorPicker
+          [(ngModel)]="storage.color"
+          name="color"
+          [inline]="true"
+        ></p-colorPicker>
+      </div>
+    </div>
+  </form>
+  </ng-template>
+
+  <ng-template pTemplate="footer">
+    <button
+      pButton
+      pRipple
+      label="Cancel"
+      icon="pi pi-times"
+      class="p-button-text"
+      (click)="hideDialog()"
+    ></button>
+    <button
+      pButton
+      pRipple
+      [label]="isUpdate ? 'Update' : 'Create'"
+      icon="pi pi-check"
+      class="p-button-text"
+      (click)="isUpdate ? updateStorageSubmit() : createStorageSubmit()"
+    ></button>
+  </ng-template>
+</p-dialog>
+
+<p-confirmDialog [style]="{ width: '450px' }" rejectButtonStyleClass="p-button-text"></p-confirmDialog>
+
+
+

@@ -1,0 +1,68 @@
+<p-table
+  [value]="storageParcels"
+  styleClass="p-datatable-gridlines"
+  [tableStyle]="{ 'min-width': '50rem' }"
+  [paginator]="true"
+  [rows]="50"
+  [showCurrentPageReport]="true"
+  currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+  [rowsPerPageOptions]="[10, 25, 50]"
+  sortField="updatedAt"
+  [sortOrder]="-1"
+>
+  <ng-template pTemplate="caption">
+    {{ storage.name }}
+  </ng-template>
+  <ng-template pTemplate="header">
+    <tr>
+      <th>Barcode</th>
+      <th>Company</th>
+      <th>Created</th>
+      <th>Actions</th>
+      <th>Unstock</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-parcel>
+    <tr>
+      <td>{{ parcel.barcode }}</td>
+      <td>{{ parcel.company }}</td>
+      <td>{{ parcel.created }}</td>
+      <td>
+        <button
+          (click)="onActionsClick(parcel)"
+          pButton
+          pRipple
+          type="button"
+          label="Actions"
+          class="p-button-help"
+        ></button>
+      </td>
+      <td>
+        <button
+          (click)="onReleaseClick(parcel)"
+          pButton
+          pRipple
+          type="button"
+          label="Release"
+          class="p-button-warning"
+        ></button>
+      </td>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="summary"> {{storage.name}} </ng-template>
+</p-table>
+
+<app-parcel-actions-modal
+  *ngIf="modalParcel && actionsDisplayModal"
+  (onHideModal)="onActionsHideModal()"
+  [displayModal]="actionsDisplayModal"
+  [title]="actionsModalTitle"
+  [parcel]="modalParcel"
+></app-parcel-actions-modal>
+<app-release-modal
+  *ngIf="modalParcel && releaseDisplayModal"
+  (onHideModal)="onReleaseHideModal()"
+  [displayModal]="releaseDisplayModal"
+  [title]="releaseModalTitle"
+  [parcel]="modalParcel"
+></app-release-modal>

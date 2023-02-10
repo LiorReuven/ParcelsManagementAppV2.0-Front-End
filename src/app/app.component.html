@@ -1,0 +1,17 @@
+<header>
+<app-nav-bar></app-nav-bar>
+</header>
+<main>
+<router-outlet></router-outlet>
+<div *ngIf="isLoading" class="lds-roller modal">
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+</div>
+<p-toast position="bottom-center"></p-toast>
+</main>
