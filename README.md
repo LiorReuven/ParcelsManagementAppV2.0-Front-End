@@ -1,5 +1,7 @@
 # Parcels Management App V2.0 Angular Front-End
 
+for a Live Demo: [Live Demo](https://parcels-management-demo.netlify.app)
+
 A newer version of the original parcels management app, done with Angular,
 please visit the original [parcels management app page](https://lior-reuven.netlify.app/main_projects/6) to learn about the core of the app
 This version added:
