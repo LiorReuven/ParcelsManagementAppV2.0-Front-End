@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
-  domain: 'https://parcels-app-demo.up.railway.app',
-  socketDomain:'https://parcels-app-demo.up.railway.app'
+  domain: 'https://parcels-management-v2.onrender.com',
+  socketDomain:'https://parcels-management-v2.onrender.com'
 };
